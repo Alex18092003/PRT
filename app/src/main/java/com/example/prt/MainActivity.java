@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public  void  goTeacher(View view) // переход в окно добавления новой записи, кнопка "Добавить запись"
+    public  void  goTeacher(View view) // переход в окно выводы информации
     {
         try {
             Intent intent = new Intent(this, conclusion.class);

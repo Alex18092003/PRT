@@ -39,7 +39,7 @@ public class conclusion extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             try {
 
-                URL url = new URL("http://10.0.2.2:21/ngknn/лебедевааф/api/Teacher");
+                URL url = new URL("http://10.0.2.2:8090/ngknn/лебедевааф/api/Teachers");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
