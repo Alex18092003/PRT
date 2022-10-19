@@ -7,14 +7,13 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Baze"
         app:srcCompat="@drawable/dfg" />
 
     <LinearLayout
@@ -35,10 +34,13 @@
         app:layout_constraintTop_toBottomOf="@+id/Baze">
 
         <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="match_parent"
-            android:onClick="goAdd"
-            android:text="Учителя" android:layout_height="200dp"/>
+            android:id="@+id/btnTeacher"
+            android:onClick="goTeacher"
+            android:layout_gravity="center"
+            style="@style/MyButtonStyle"
+            android:text="Учителя"
+
+            />
 
     </LinearLayout>
 
