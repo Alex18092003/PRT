@@ -28,7 +28,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:id="@+id/Niz"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/Baze">
@@ -36,6 +36,7 @@
         <Button
             android:id="@+id/btnTeacher"
             android:onClick="goTeacher"
+
             android:layout_gravity="center"
             style="@style/MyButtonStyle"
             android:text="Учителя"

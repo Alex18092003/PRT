@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".add">
+
+    <LinearLayout
+        android:id="@+id/Baze"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавление учителя"
+            android:textColor="@color/black"
+            android:layout_margin="20dp"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+         android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/custom_text"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/Teacher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Заполните все поля"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+                <ImageView
+                    android:id="@+id/Picture"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/nophoto" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btnAddd"
+                    style="@style/MyButtonStyle"
+                    android:onClick="onClickImage"
+                    android:text="Добавить фото" />
+
+                <Button
+                    android:id="@+id/btnDel"
+                    style="@style/MyButtonStyle"
+                   android:layout_marginStart="20dp"
+                    android:onClick="deletePicture"
+                    android:text="Удалить фото" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_text"
+                    android:drawablePadding="5dp"
+                    android:hint="Имя"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/Surname"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_text"
+                    android:drawablePadding="5dp"
+                    android:hint="Фамилия"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/Patronymic"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_text"
+                    android:drawablePadding="5dp"
+                    android:hint="Отчество"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/Subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_text"
+                    android:drawablePadding="5dp"
+                    android:hint="Предмет"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Введите данные"
+            android:layout_margin="15dp"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/etKurs"
+
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
