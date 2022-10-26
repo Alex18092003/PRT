@@ -2,8 +2,10 @@ package com.example.prt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,7 +41,7 @@ public class conclusion extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             try {
 
-                URL url = new URL("http://10.0.2.2:8090/ngknn/лебедевааф/api/Teachers");
+                URL url = new URL("https://ngknn.ru:5101/NGKNN/лебедевааф/api/Teachers");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -83,5 +85,17 @@ public class conclusion extends AppCompatActivity {
         }
 
 
+    }
+
+    public  void  goAdd(View view) // переход в окно ввода информации
+    {
+        try {
+            Intent intent = new Intent(this, add.class);
+            startActivity(intent);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(conclusion.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
     }
 }

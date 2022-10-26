@@ -36,7 +36,6 @@
         <Button
             android:id="@+id/btnTeacher"
             android:onClick="goTeacher"
-
             android:layout_gravity="center"
             style="@style/MyButtonStyle"
             android:text="Учителя"

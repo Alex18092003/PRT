@@ -23,6 +23,7 @@ public class AdapterMask extends BaseAdapter {
         this.mContext = mContext;
         this.maskList = listProduct;
     }
+
     List<Mask> maskList;
 
     @Override
@@ -49,7 +50,7 @@ public class AdapterMask extends BaseAdapter {
         }
         else
         {
-            return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_launcher_foreground);
+            return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nophoto);
 
         }
     }
@@ -70,6 +71,15 @@ public class AdapterMask extends BaseAdapter {
         Patronymic.setText(mask.getPatronymic());
         Subject.setText(mask.getSubject());
         Images.setImageBitmap(getUserImage(mask.getImages()));
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(mContext,editing.class);
+                intent.putExtra("Student",mask);
+                mContext.startActivity(intent);
+            }
+        });
 
         return v;
     }
