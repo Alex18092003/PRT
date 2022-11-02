@@ -134,6 +134,8 @@
             />
 
         <Button
+            android:id="@+id/AddTeacher"
+            android:onClick="AddTeacher"
             style="@style/MyButtonStyleUnderTheBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

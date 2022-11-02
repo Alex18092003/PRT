@@ -21,6 +21,7 @@ import java.util.List;
 
 public class conclusion extends AppCompatActivity {
 
+
     private AdapterMask pAdapter;
     private List<Mask> listProduct = new ArrayList<>();
     @Override
