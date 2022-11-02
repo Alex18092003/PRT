@@ -6,12 +6,14 @@ public class DataModal {
     private String Surname;
     private String Patronymic;
     private String Subject;
+    private String Picture;
 
-    public DataModal(String Name, String Surname,String Patronymic, String Subject ) {
+    public DataModal(String Name, String Surname,String Patronymic, String Subject,  String Picture ) {
         this.Name = Name;
         this.Surname = Surname;
         this.Patronymic = Patronymic;
         this.Subject = Subject;
+        this.Picture = Picture;
     }
 
     public String getName() {
@@ -26,6 +28,9 @@ public class DataModal {
     public String getSubject() {
         return Subject;
     }
+    public String getPicture() {
+        return Picture;
+    }
 
     public void setName(String Name) {
         this.Name = Name;
@@ -38,6 +43,9 @@ public class DataModal {
     }
     public void setSubject(String Subject) {
         this.Subject = Subject;
+    }
+    public void setPicture(String Picture) {
+        this.Picture = Picture;
     }
 
 }
