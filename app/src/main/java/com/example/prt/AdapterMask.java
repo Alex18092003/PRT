@@ -76,7 +76,7 @@ public class AdapterMask extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(mContext,editing.class);
-                intent.putExtra("Student",mask);
+                intent.putExtra("Teachers",mask);
                 mContext.startActivity(intent);
             }
         });

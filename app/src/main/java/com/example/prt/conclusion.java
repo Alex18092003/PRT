@@ -42,7 +42,7 @@ public class conclusion extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             try {
 
-                URL url = new URL("https://ngknn.ru:5101/NGKNN/лебедевааф/api/Teachers");
+                URL url = new URL("https://ngknn.ru:5001/NGKNN/лебедевааф/api/Teachers");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -64,6 +64,8 @@ public class conclusion extends AppCompatActivity {
             super.onPostExecute(s);
             try
             {
+                listProduct.clear();
+                pAdapter.notifyDataSetInvalidated();
                 JSONArray tempArray = new JSONArray(s);
                 for (int i = 0;i<tempArray.length();i++)
                 {

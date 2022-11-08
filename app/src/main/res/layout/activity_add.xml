@@ -143,6 +143,18 @@
             android:background="@color/black"
             android:text="Добавить"></Button>
 
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/MyButtonStyleUnderTheBackground"
+            android:text="Назад"
+            android:onClick="goBack"></Button>
+
+        <Button
+            android:id="@+id/btnClear"
+            style="@style/MyButtonStyleUnderTheBackground"
+            android:text="Очистить поля"
+            android:onClick="CleaningOfAllFields"></Button>
+
 
     </LinearLayout>
 

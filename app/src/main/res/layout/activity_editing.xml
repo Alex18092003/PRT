@@ -68,7 +68,7 @@
             </LinearLayout>
 
                 <EditText
-                    android:id="@+id/Name"
+                    android:id="@+id/eName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -79,7 +79,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/Surname"
+                    android:id="@+id/eSurname"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
@@ -89,7 +89,7 @@
                     android:padding="10dp"
                     android:textColor="@color/black" />
                 <EditText
-                    android:id="@+id/Patronymic"
+                    android:id="@+id/ePatronymic"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
@@ -99,7 +99,7 @@
                     android:padding="10dp"
                     android:textColor="@color/black" />
                 <EditText
-                    android:id="@+id/Subject"
+                    android:id="@+id/eSubject"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
@@ -123,12 +123,26 @@
 
 
         <Button
+            android:id="@+id/btnEditing"
             style="@style/MyButtonStyleUnderTheBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@color/black"
-            android:text="Сохранить изменения"></Button>
+            android:text="Сохранить изменения"
+            android:onClick="Update"></Button>
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/MyButtonStyleUnderTheBackground"
+            android:text="Назад"
+            android:onClick="goBack"></Button>
+
+        <Button
+            android:id="@+id/btnDell"
+            style="@style/MyButtonStyleUnderTheBackground"
+            android:text="Удалить запись"
+            android:onClick="Delet"></Button>
 
     </LinearLayout>
 
