@@ -17,12 +17,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +40,9 @@ public class editing extends AppCompatActivity {
     private EditText eName, eSurname, ePatronymic, eSubject;
     private TextView status;
     String img = null;
+    private List<Mask> listProduct = new ArrayList<>();
     Mask mask;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +57,19 @@ public class editing extends AppCompatActivity {
         eName = findViewById(R.id.eName);
         eName.setText(mask.getName());
         eSurname = findViewById(R.id.eSurname);
-        eSurname.setText(mask.getName());
+        eSurname.setText(mask.getSurname());
         ePatronymic = findViewById(R.id.ePatronymic);
-        ePatronymic.setText(mask.getName());
+        ePatronymic.setText(mask.getPatronymic());
         eSubject = findViewById(R.id.eSubject);
-        eSubject.setText(mask.getName());
+        eSubject.setText(mask.getSubject());
         status = findViewById(R.id.status);
         Picture = findViewById(R.id.Picture);
         btnAddd = findViewById(R.id.btnAddd);
         btnDel = findViewById(R.id.btnDel);
         btnEditing = findViewById(R.id.btnEditing);
         Picture.setImageBitmap(getImgBitmap(mask.getImages()));
+
+
     }
 
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -148,12 +155,13 @@ public class editing extends AppCompatActivity {
         startActivityForResult(intentChooser,1);
     }
 
-    private void  putUpdate (String name, String surname, String patronymic, String subject, String picture)
+    private void  putUpdate ( String name, String surname, String patronymic, String subject, String picture)
     {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/Teachers/").addConverterFactory(GsonConverterFactory.create()).build();
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
         DataModal modal = new DataModal(name, surname, patronymic,subject, picture);
-        Call<DataModal> call = retrofitAPI.updateData(modal);
+        Call<DataModal> call = retrofitAPI.updateData(mask.getKod_teacher(), modal);
         call.enqueue(new Callback<DataModal>()
         {
             @Override
@@ -161,6 +169,8 @@ public class editing extends AppCompatActivity {
                 String responseString = "Данные успешно изменены";
                 status.setText(responseString);
                 DataModal responseFromAPI = response.body();
+
+                List<Mask> listProduct = new ArrayList<>();
 
             }
 
@@ -187,12 +197,12 @@ public class editing extends AppCompatActivity {
                 return;
             }
             else {
-                putUpdate(Name, Surname, Patronymic, Subject, img);
+                putUpdate( Name, Surname, Patronymic, Subject, img);
             }
         }
         catch (Exception ex)
         {
-            Toast.makeText(editing.this,"Что-то пошло не так  с добавлением данных", Toast.LENGTH_LONG).show();
+            Toast.makeText(editing.this,"Что-то пошло не так  с изменением данных", Toast.LENGTH_LONG).show();
         }
     }
 

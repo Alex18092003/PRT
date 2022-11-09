@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_gravity="center"
     android:padding="5dp">
@@ -13,42 +14,113 @@
         android:layout_height="150dp"
         android:src="@drawable/nophoto"
        />
+    <LinearLayout
+        android:id="@+id/verh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
+    <LinearLayout
+        android:id="@+id/cent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cent2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
     <TextView
-        android:id="@+id/Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="sdfds"
-        android:layout_marginTop="10dp"
-        android:textSize="10dp"></TextView>
+        android:text="Фамилия:"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="7dp">
+    </TextView>
+        <TextView
+            android:id="@+id/Surname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Surname"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="14dp"></TextView>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/Surname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="dfsdfsdf"
-        android:layout_marginTop="10dp"
-        android:textSize="10dp"></TextView>
+        <LinearLayout
+            android:id="@+id/cent2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/niz"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Имя:"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp">
+            </TextView>
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Name"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="14dp"
+                ></TextView>
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/cent3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/niz"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Отчество:"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="7dp">
+            </TextView>
     <TextView
         android:id="@+id/Patronymic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="sdfsd"
-        android:layout_marginTop="10dp"
-        android:textSize="10dp"></TextView>
-
+        android:text="Patronymic"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="14dp"></TextView>
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/niz"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/niz"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Предмет:"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="7dp">
+        </TextView>
     <TextView
         android:id="@+id/Subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="sdfdf"
-        android:layout_marginTop="10dp"
-        android:textSize="10dp"></TextView>
+        android:text="Subject"
+        android:textSize="14dp"></TextView>
+    </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
