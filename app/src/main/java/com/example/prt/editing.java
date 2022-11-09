@@ -42,6 +42,7 @@ public class editing extends AppCompatActivity {
     String img = null;
     private List<Mask> listProduct = new ArrayList<>();
     Mask mask;
+    Integer kod_teacher = null;
 
 
     @Override
@@ -155,13 +156,13 @@ public class editing extends AppCompatActivity {
         startActivityForResult(intentChooser,1);
     }
 
-    private void  putUpdate ( String name, String surname, String patronymic, String subject, String picture)
+    private void  putUpdate (Integer kod_teacher, String name, String surname, String patronymic, String subject, String picture)
     {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        DataModal modal = new DataModal(name, surname, patronymic,subject, picture);
-        Call<DataModal> call = retrofitAPI.updateData(mask.getKod_teacher(), modal);
+        DataModal modal = new DataModal(kod_teacher, name, surname, patronymic,subject, picture);
+        Call<DataModal> call = retrofitAPI.updateData(kod_teacher,modal);
         call.enqueue(new Callback<DataModal>()
         {
             @Override
@@ -197,7 +198,7 @@ public class editing extends AppCompatActivity {
                 return;
             }
             else {
-                putUpdate( Name, Surname, Patronymic, Subject, img);
+                putUpdate(kod_teacher, Name, Surname, Patronymic, Subject, img);
             }
         }
         catch (Exception ex)

@@ -91,7 +91,7 @@ public class add extends AppCompatActivity {
         }
         return img = "";
     }
-
+    Integer kod_teacher = null;
     public void AddingDataFromSQL(View v)
     {
         try{
@@ -108,7 +108,7 @@ public class add extends AppCompatActivity {
                 return;
             }
             else {
-                    postData(Name, Surname, Patronymic, Subject, img);
+                    postData(kod_teacher ,Name, Surname, Patronymic, Subject, img);
             }
         }
         catch (Exception ex)
@@ -119,11 +119,11 @@ public class add extends AppCompatActivity {
 
 
 
-    private void postData(String name, String surname, String patronymic, String subject, String picture)
+    private void postData(Integer kod_teacher, String name, String surname, String patronymic, String subject, String picture)
     {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/Teachers/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        DataModal modal = new DataModal(name, surname, patronymic,subject, picture);
+        DataModal modal = new DataModal(kod_teacher, name, surname, patronymic,subject, picture);
         Call<DataModal> call = retrofitAPI.createPost(modal);
         call.enqueue(new Callback<DataModal>() {
             @Override
