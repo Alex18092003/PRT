@@ -15,8 +15,9 @@ public interface RetrofitAPI {
 //в строке ниже мы создаем метод для публикации наших данных.
     Call<DataModal> createPost(@Body DataModal dataModal);
 
-    @PUT("Teachers/")
-    Call<DataModal> updateData(@Query("Kod_teacher") int Kod_teacher, @Body DataModal dataModal);
+    @PUT("api/users/2")
+    Call<DataModal> updateData(@Body DataModal dataModal);
+
 
     @DELETE("Teachers/{id}")
     Call<Void> deleteData(@Path("id") int id);

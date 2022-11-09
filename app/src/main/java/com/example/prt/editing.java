@@ -148,12 +148,12 @@ public class editing extends AppCompatActivity {
         startActivityForResult(intentChooser,1);
     }
 
-    public void  putUpdate (String name, String surname, String patronymic, String subject, String picture)
+    private void  putUpdate (String name, String surname, String patronymic, String subject, String picture)
     {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/Teachers/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
         DataModal modal = new DataModal(name, surname, patronymic,subject, picture);
-        Call<DataModal> call = retrofitAPI.updateData(mask.getKod_teacher(), modal);
+        Call<DataModal> call = retrofitAPI.updateData(modal);
         call.enqueue(new Callback<DataModal>()
         {
             @Override
