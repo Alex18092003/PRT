@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -37,13 +38,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class editing extends AppCompatActivity {
 
     private ImageView Picture;
+    Bitmap bitmap=null;
     private Button btnAddd, btnDel, btnEditing;
     private EditText eName, eSurname, ePatronymic, eSubject;
     private TextView status;
     String img = null;
     private List<Mask> listProduct = new ArrayList<>();
-    Mask mask;
-    String Image;
+
     DataModal dataModal;
     int id;
     Bundle arg;
@@ -58,21 +59,35 @@ public class editing extends AppCompatActivity {
 
         arg = getIntent().getExtras();
 
-        id = arg.getInt("Kod_teacher");
         dataModal = arg.getParcelable(DataModal.class.getSimpleName());
 
         Picture=findViewById(R.id.Picture);
-       Picture.setImageBitmap(getImgBitmap(dataModal.getImages()));
+
 
         eName = findViewById(R.id.eName);
         eName.setText(dataModal.getName());
+
         eSurname = findViewById(R.id.eSurname);
+
         eSurname.setText(dataModal.getSurname());
         ePatronymic = findViewById(R.id.ePatronymic);
+
         ePatronymic.setText(dataModal.getPatronymic());
         eSubject = findViewById(R.id.eSubject);
+
         eSubject.setText(dataModal.getSubject());
 
+        AdapterMask decodeImage = new AdapterMask(editing.this);
+       // Bitmap userImage = decodeImage.getUserImage(dataModal.getImages());
+        //Picture.setImageBitmap(userImage);
+        Picture.setImageBitmap(decodeImage.getUserImage(dataModal.getImages()));
+        if(!dataModal.getImages().equals("null")){
+            bitmap = decodeImage.getUserImage(dataModal.getImages());
+        }
+        else
+        {
+            bitmap = null;
+        }
 
         status = findViewById(R.id.status);
         btnAddd = findViewById(R.id.btnAddd);
@@ -82,36 +97,55 @@ public class editing extends AppCompatActivity {
 
     }
 
+    public void deletePicture(View v) // удаление изображения, кнопка "Удалить фото"
+    {
+        try {
+            Picture.setImageBitmap(null);
+            Picture.setImageResource(R.drawable.nophoto);
+            bitmap = null;
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(editing.this,"Что-то пошло не так с удалением фото", Toast.LENGTH_LONG).show();
+        }
+    }
+
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
-            if (result.getData() != null  && result != null) {
+            if (result.getData() != null) {
+                Uri uri = result.getData().getData();
                 try {
-                    Uri uri = result.getData().getData();
                     InputStream is = getContentResolver().openInputStream(uri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    Picture.setImageBitmap(bitmap);
-                    img = encodeImg(bitmap);
+                    bitmap = BitmapFactory.decodeStream(is);
+                    Picture.setImageURI(uri);
                 } catch (Exception e) {
-                    Toast.makeText(editing.this,"Что-то пошло не так  с изображением", Toast.LENGTH_LONG).show();
+                    Toast.makeText(editing.this, "Что-то пошло не так", Toast.LENGTH_LONG).show();
                 }
             }
         }
     });
 
-
+    public String Image(Bitmap bitmap) {
+        if (bitmap == null) {
+            return null;
+        } else {
+            String imgg = encodeImg(bitmap);
+            return imgg;
+        }
+    }
 
     public String encodeImg(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] b = byteArrayOutputStream.toByteArray();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            img = Base64.getEncoder().encodeToString(b);
+            img = java.util.Base64.getEncoder().encodeToString(b);
             return img;
         }
         return "";
     }
 
-    private Bitmap getImgBitmap(String encodedImg) {
+    private Bitmap getImgBitmap(Context context, String encodedImg) {
         if(encodedImg!=null&& !encodedImg.equals("null")) {
             byte[] bytes = new byte[0];
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -129,6 +163,7 @@ public class editing extends AppCompatActivity {
     public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
     {
         try {
+            SystemClock.sleep(1000);
             Intent intent = new Intent(this, conclusion.class);
             startActivity(intent);
         }
@@ -147,70 +182,58 @@ public class editing extends AppCompatActivity {
             Toast.makeText(editing.this, "Что-то пошло не так с добавлением фото", Toast.LENGTH_LONG).show();
         }
     }
-    public void deletePicture(View v) // удаление изображения, кнопка "Удалить фото"
-    {
-        try {
-            Picture.setImageBitmap(null);
-            Picture.setImageResource(R.drawable.nophoto);
-            img = null;
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(editing.this,"Что-то пошло не так с удалением фото", Toast.LENGTH_LONG).show();
-        }
-    }
 
 
-    private void  putUpdate (DataModal dataModal, View v)
-    {
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/").addConverterFactory(GsonConverterFactory.create()).build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        Call<DataModal> call = retrofitAPI.updateData( dataModal.getKod_teacher(), dataModal);
-        call.enqueue(new Callback<DataModal>()
-        {
-            @Override
-            public void onResponse(Call<DataModal> call, Response<DataModal> response) {
-                String responseString = "Данные успешно изменены";
-                status.setText(responseString);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<DataModal> call, Throwable t) {
-
-            }
-        });
-    }
-
+    //проверка заполнения полей для обновления
     public void Update (View v)
     {
         try{
-//            dataModal.setName(eName.getText().toString());
-//            dataModal.setSurname(eSurname.getText().toString());
-//            dataModal.setPatronymic(ePatronymic.getText().toString());
-//            dataModal.setSubject(eSubject.getText().toString());
-//            dataModal.setImages();
-//            String Name = eName.getText().toString();
-//            String Surname = eSurname.getText().toString();
-//            String Patronymic = ePatronymic.getText().toString();
-//            String Subject = eSubject.getText().toString();
+            dataModal.setName(eName.getText().toString());
+            dataModal.setSurname(eSurname.getText().toString());
+            dataModal.setPatronymic(ePatronymic.getText().toString());
+            dataModal.setSubject(eSubject.getText().toString());
+            dataModal.setImages(Image(bitmap));
             if (eName.getText().length() == 0 ||
                     eSurname.getText().length() == 0||
                     ePatronymic.getText().length() == 0 ||
-                   eSubject.getText().length() == 0) {
+                    eSubject.getText().length() == 0) {
                 String responseString = "Не все поля заполнены!!";
                 status.setText(responseString);
                 return;
             }
+            else {
                 putUpdate(dataModal, v);
-            SystemClock.sleep(1000);
-            goBack(v);
+                SystemClock.sleep(1500);
+                //goBack(v);
+            }
         }
         catch (Exception ex)
         {
-            Toast.makeText(editing.this,"Что-то пошло не так  с заполнением полей и добавлением", Toast.LENGTH_LONG).show();
+            Toast.makeText(editing.this,"Что-то пошло не так  с заполнением полей и изменением", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void  putUpdate ( DataModal dataModal, View v)
+    {
+        try {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/").addConverterFactory(GsonConverterFactory.create()).build();
+            RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+            Call<DataModal> call = retrofitAPI.updateData(dataModal.getKod_teacher(),dataModal);
+            call.enqueue(new Callback<DataModal>() {
+                @Override
+                public void onResponse(Call<DataModal> call, Response<DataModal> response) {
+                    String responseString = "Данные успешно изменены";
+                    status.setText(responseString);
+                }
+                @Override
+                public void onFailure(Call<DataModal> call, Throwable t) {
+                    Toast.makeText(editing.this, "Что-то пошло не так с изменением", Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+        catch (Exception ex) {
+            Toast.makeText(editing.this, "Что-то пошло не так с изменением", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -253,15 +276,15 @@ public class editing extends AppCompatActivity {
             call.enqueue(new Callback<DataModal>() {
                 @Override
                 public void onResponse(Call<DataModal> call, Response<DataModal> response) {
-
+                    Toast.makeText(editing.this, "Успешное удаление", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onFailure(Call<DataModal> call, Throwable t) {
-
+                    Toast.makeText(editing.this, "Что-то пошло не так с удалением", Toast.LENGTH_LONG).show();
                 }
             });
-            SystemClock.sleep(500);
+            SystemClock.sleep(600);
             startActivity(new Intent(this, conclusion.class));
         }
         catch (Exception ex) {

@@ -12,7 +12,7 @@ public interface RetrofitAPI {
     @POST("users")
     Call<DataModal> createPost(@Body DataModal dataModal);
 
-    @PUT("Teachers/{id}}")
+    @PUT("Teachers/{id}")
     Call<DataModal> updateData(@Path("id") int id, @Body DataModal dataModal);
 
 

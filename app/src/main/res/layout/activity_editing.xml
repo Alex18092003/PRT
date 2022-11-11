@@ -62,7 +62,7 @@
                 <Button
                     android:id="@+id/btnDel"
                     style="@style/MyButtonStyle"
-                    android:layout_marginStart="75dp"
+                    android:layout_marginStart="60dp"
                     android:onClick="deletePicture"
                     android:text="Удалить фото" />
             </LinearLayout>
@@ -132,18 +132,44 @@
             android:background="@color/black"
             android:text="Сохранить изменения"
             android:onClick="Update"></Button>
-
+    <LinearLayout
+        android:id="@+id/Niz"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:id="@+id/Niz2"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
         <Button
             android:id="@+id/btnBack"
             style="@style/MyButtonStyleUnderTheBackground"
             android:text="Назад"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="1dp"
+            android:layout_gravity="center"
             android:onClick="goBack"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Niz3"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/btnDell"
             style="@style/MyButtonStyleUnderTheBackground"
             android:text="Удалить запись"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
             android:onClick="Delet"></Button>
+    </LinearLayout>
+    </LinearLayout>
 
     </LinearLayout>
 

@@ -23,6 +23,10 @@ public class AdapterMask extends BaseAdapter {
         this.mContext = mContext;
         this.maskList = listProduct;
     }
+    public AdapterMask(Context mContext) {
+        this.mContext = mContext;
+    }
+
 
     List<DataModal> maskList;
 
@@ -41,9 +45,8 @@ public class AdapterMask extends BaseAdapter {
         return maskList.get(i).getKod_teacher();
     }
 
-    private Bitmap getUserImage(String encodedImg)
+    public Bitmap getUserImage(String encodedImg)
     {
-
         if(encodedImg!=null&& !encodedImg.equals("null")) {
             byte[] bytes = Base64.decode(encodedImg, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

@@ -125,17 +125,12 @@ public class add extends AppCompatActivity {
                 public void onResponse(Call<DataModal> call, Response<DataModal> response) {
                     String responseString = "Данные успешно добавлены";
                     status.setText(responseString);
-                    etName.setText("");
-                    etSurname.setText("");
-                    etPatronymic.setText("");
-                    etSubject.setText("");
-                    Picture.setImageResource(R.drawable.nophoto);
-                    img = null;
+
                 }
 
                 @Override
                 public void onFailure(Call<DataModal> call, Throwable t) {
-
+                    Toast.makeText(add.this, "Что-то пошло не так с добавлением данных", Toast.LENGTH_LONG).show();
                 }
             });
         }

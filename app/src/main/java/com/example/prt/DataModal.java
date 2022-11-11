@@ -31,7 +31,7 @@ public class DataModal implements Parcelable {
         Subject = in.readString();
         Images = in.readString();
     }
-    public static final Parcelable.Creator<DataModal> CREATOR = new Parcelable.Creator<DataModal>() {
+    public static final Creator<DataModal> CREATOR = new Creator<DataModal>() {
         @Override
         public DataModal createFromParcel(Parcel in) {
             return new DataModal(in);
