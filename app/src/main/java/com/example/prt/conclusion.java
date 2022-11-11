@@ -2,10 +2,12 @@ package com.example.prt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,7 +25,7 @@ public class conclusion extends AppCompatActivity {
 
 
     private AdapterMask pAdapter;
-    private List<Mask> listProduct = new ArrayList<>();
+    private List<DataModal> listProduct = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +66,11 @@ public class conclusion extends AppCompatActivity {
             super.onPostExecute(s);
             try
             {
-                listProduct.clear();
-                pAdapter.notifyDataSetInvalidated();
                 JSONArray tempArray = new JSONArray(s);
                 for (int i = 0;i<tempArray.length();i++)
                 {
                     JSONObject productJson = tempArray.getJSONObject(i);
-                    Mask tempTeacher = new Mask(
+                    DataModal tempTeacher = new DataModal(
                             productJson.getInt("Kod_teacher"),
                             productJson.getString("Name"),
                             productJson.getString("Surname"),

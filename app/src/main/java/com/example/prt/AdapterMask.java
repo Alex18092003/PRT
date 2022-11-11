@@ -16,15 +16,15 @@ import java.util.List;
 
 public class AdapterMask extends BaseAdapter {
     private Context mContext;
-    private ArrayList<Mask> mListMask;
+    private ArrayList<DataModal> mListMask;
     String img="";
 
-    public AdapterMask(Context mContext, List<Mask> listProduct) {
+    public AdapterMask(Context mContext, List<DataModal> listProduct) {
         this.mContext = mContext;
         this.maskList = listProduct;
     }
 
-    List<Mask> maskList;
+    List<DataModal> maskList;
 
     @Override
     public int getCount() {
@@ -65,18 +65,18 @@ public class AdapterMask extends BaseAdapter {
         TextView Subject = v.findViewById(R.id.Subject);
         ImageView Images = v.findViewById(R.id.imageView);
 
-        Mask mask = maskList.get(i);
-        Name.setText(mask.getName());
-        Surname.setText(mask.getSurname());
-        Patronymic.setText(mask.getPatronymic());
-        Subject.setText(mask.getSubject());
-        Images.setImageBitmap(getUserImage(mask.getImages()));
+        DataModal dataModal = maskList.get(i);
+        Name.setText(dataModal.getName());
+        Surname.setText(dataModal.getSurname());
+        Patronymic.setText(dataModal.getPatronymic());
+        Subject.setText(dataModal.getSubject());
+        Images.setImageBitmap(getUserImage(dataModal.getImages()));
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(mContext,editing.class);
-                intent.putExtra("Teachers",mask);
+                intent.putExtra(DataModal.class.getSimpleName(), dataModal);
                 mContext.startActivity(intent);
             }
         });

@@ -38,7 +38,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class add extends AppCompatActivity {
 
     private EditText etName, etSurname, etPatronymic, etSubject;
-    private Button AddTeacher,btnAddd,btnDel;
     private ImageView Picture;
     private TextView status;
     String img = null;
@@ -53,46 +52,41 @@ public class add extends AppCompatActivity {
         etSurname = findViewById(R.id.etSurname);
         etPatronymic = findViewById(R.id.etPatronymic);
         etSubject = findViewById(R.id.etSubject);
-        AddTeacher = findViewById(R.id.AddTeacher);
-        btnAddd = findViewById(R.id.btnAddd);
-        btnDel = findViewById(R.id.btnDel);
+
         Picture = findViewById(R.id.Picture);
+
         status = findViewById(R.id.status);
 
     }
 
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
-            if (result.getData() != null) {
-                Uri uri = result.getData().getData();
+            if (result.getData() != null  && result != null) {
                 try {
+                    Uri uri = result.getData().getData();
                     InputStream is = getContentResolver().openInputStream(uri);
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
                     Picture.setImageBitmap(bitmap);
                     img = encodeImg(bitmap);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Toast.makeText(add.this,"Что-то пошло не так  с изображением", Toast.LENGTH_LONG).show();
                 }
             }
         }
     });
 
     public String encodeImg(Bitmap bitmap) {
-        int prevW = 500;
-        int prevH = bitmap.getHeight() * prevW / bitmap.getWidth();
-
-        Bitmap b = Bitmap.createScaledBitmap(bitmap, prevW, prevH, false);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            img = Base64.getEncoder().encodeToString(bytes);
-            return img;
-        }
-        return img = "";
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] b = byteArrayOutputStream.toByteArray();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                img = Base64.getEncoder().encodeToString(b);
+                return img;
+            }
+            return "";
     }
-    Integer kod_teacher = null;
-    public void AddingDataFromSQL(View v)
+
+    public void AddingDataFromSQL(View v)//проверка на заполнение всех полей
     {
         try{
             String Name = etName.getText().toString();
@@ -108,59 +102,62 @@ public class add extends AppCompatActivity {
                 return;
             }
             else {
-                    postData(kod_teacher ,Name, Surname, Patronymic, Subject, img);
+                    postData( Name, Surname, Patronymic, Subject, img);
             }
         }
         catch (Exception ex)
         {
-            Toast.makeText(add.this,"Что-то пошло не так  с добавлением данных", Toast.LENGTH_LONG).show();
+            Toast.makeText(add.this,"Что-то пошло не так с заполнением полей и добавлением", Toast.LENGTH_LONG).show();
         }
     }
 
 
-
-    private void postData(Integer kod_teacher, String name, String surname, String patronymic, String subject, String picture)
+// добавление данных
+    private void postData( String name, String surname, String patronymic, String subject, String picture)
     {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/Teachers/").addConverterFactory(GsonConverterFactory.create()).build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        DataModal modal = new DataModal(kod_teacher, name, surname, patronymic,subject, picture);
-        Call<DataModal> call = retrofitAPI.createPost(modal);
-        call.enqueue(new Callback<DataModal>() {
-            @Override
-            public void onResponse(Call<DataModal> call, Response<DataModal> response) {
-                String responseString = "Данные успешно добавлены";
-                status.setText(responseString);
-                etName.setText("");
-                etSurname.setText("");
-                etPatronymic.setText("");
-                etSubject.setText("");
-                Picture.setImageResource(R.drawable.nophoto);
-                img = null;
-            }
+        try {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://ngknn.ru:5001/NGKNN/лебедевааф/api/Teachers/").addConverterFactory(GsonConverterFactory.create()).build();
+            RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+            DataModal modal = new DataModal(null, name, surname, patronymic, subject, picture);
+            Call<DataModal> call = retrofitAPI.createPost(modal);
+            call.enqueue(new Callback<DataModal>() {
+                @Override
+                public void onResponse(Call<DataModal> call, Response<DataModal> response) {
+                    String responseString = "Данные успешно добавлены";
+                    status.setText(responseString);
+                    etName.setText("");
+                    etSurname.setText("");
+                    etPatronymic.setText("");
+                    etSubject.setText("");
+                    Picture.setImageResource(R.drawable.nophoto);
+                    img = null;
+                }
 
-            @Override
-            public void onFailure(Call<DataModal> call, Throwable t) {
+                @Override
+                public void onFailure(Call<DataModal> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
+        catch (Exception ex) {
+            Toast.makeText(add.this, "Что-то пошло не так с добавлением данных", Toast.LENGTH_LONG).show();
+        }
     }
 
-    private void getImage()
-    {
-        Intent intentChooser= new Intent();
-        intentChooser.setType("image/*");
-        intentChooser.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intentChooser,1);
-    }
 
 
 
 
     public void onClickImage(View view) //добавление картинки
     {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        pickImg.launch(intent);
+        try {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            pickImg.launch(intent);
+        }
+        catch (Exception ex) {
+            Toast.makeText(add.this, "Что-то пошло не так с добавлением фото", Toast.LENGTH_LONG).show();
+        }
     }
 
     public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
