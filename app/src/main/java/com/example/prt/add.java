@@ -42,7 +42,6 @@ public class add extends AppCompatActivity {
     private TextView status;
     String img = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +55,6 @@ public class add extends AppCompatActivity {
         Picture = findViewById(R.id.Picture);
 
         status = findViewById(R.id.status);
-
     }
 
     private final ActivityResultLauncher<Intent> pickImg = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -139,10 +137,6 @@ public class add extends AppCompatActivity {
         }
     }
 
-
-
-
-
     public void onClickImage(View view) //добавление картинки
     {
         try {
@@ -195,7 +189,5 @@ public class add extends AppCompatActivity {
         {
             Toast.makeText(add.this,"Что-то пошло не так с очисткой полей", Toast.LENGTH_LONG).show();
         }
-
     }
-
 }

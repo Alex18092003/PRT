@@ -39,18 +39,12 @@ public class editing extends AppCompatActivity {
 
     private ImageView Picture;
     Bitmap bitmap=null;
-    private Button btnAddd, btnDel, btnEditing;
     private EditText eName, eSurname, ePatronymic, eSubject;
     private TextView status;
     String img = null;
     private List<Mask> listProduct = new ArrayList<>();
-
     DataModal dataModal;
-    int id;
     Bundle arg;
-    Integer kod_teacher;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +52,6 @@ public class editing extends AppCompatActivity {
         setContentView(R.layout.activity_editing);
 
         arg = getIntent().getExtras();
-
         dataModal = arg.getParcelable(DataModal.class.getSimpleName());
 
         Picture=findViewById(R.id.Picture);
@@ -66,20 +59,14 @@ public class editing extends AppCompatActivity {
 
         eName = findViewById(R.id.eName);
         eName.setText(dataModal.getName());
-
         eSurname = findViewById(R.id.eSurname);
-
         eSurname.setText(dataModal.getSurname());
         ePatronymic = findViewById(R.id.ePatronymic);
-
         ePatronymic.setText(dataModal.getPatronymic());
         eSubject = findViewById(R.id.eSubject);
-
         eSubject.setText(dataModal.getSubject());
 
         AdapterMask decodeImage = new AdapterMask(editing.this);
-       // Bitmap userImage = decodeImage.getUserImage(dataModal.getImages());
-        //Picture.setImageBitmap(userImage);
         Picture.setImageBitmap(decodeImage.getUserImage(dataModal.getImages()));
         if(!dataModal.getImages().equals("null")){
             bitmap = decodeImage.getUserImage(dataModal.getImages());
@@ -88,13 +75,7 @@ public class editing extends AppCompatActivity {
         {
             bitmap = null;
         }
-
         status = findViewById(R.id.status);
-        btnAddd = findViewById(R.id.btnAddd);
-        btnDel = findViewById(R.id.btnDel);
-        btnEditing = findViewById(R.id.btnEditing);
-
-
     }
 
     public void deletePicture(View v) // удаление изображения, кнопка "Удалить фото"
@@ -133,7 +114,6 @@ public class editing extends AppCompatActivity {
             return imgg;
         }
     }
-
     public String encodeImg(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
@@ -143,21 +123,6 @@ public class editing extends AppCompatActivity {
             return img;
         }
         return "";
-    }
-
-    private Bitmap getImgBitmap(Context context, String encodedImg) {
-        if(encodedImg!=null&& !encodedImg.equals("null")) {
-            byte[] bytes = new byte[0];
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                bytes = Base64.getDecoder().decode(encodedImg);
-            }
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        }
-        else{
-            return BitmapFactory.decodeResource(editing.this.getResources(),
-                    R.drawable.nophoto);
-        }
-
     }
 
     public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
@@ -171,6 +136,7 @@ public class editing extends AppCompatActivity {
             Toast.makeText(editing.this, "Что-то пошло не так с переходом на страницы", Toast.LENGTH_LONG).show();
         }
     }
+
     public void onClickImage(View view) //добавление картинки
     {
         try {
@@ -182,7 +148,6 @@ public class editing extends AppCompatActivity {
             Toast.makeText(editing.this, "Что-то пошло не так с добавлением фото", Toast.LENGTH_LONG).show();
         }
     }
-
 
     //проверка заполнения полей для обновления
     public void Update (View v)
@@ -204,7 +169,6 @@ public class editing extends AppCompatActivity {
             else {
                 putUpdate(dataModal, v);
                 SystemClock.sleep(1500);
-                //goBack(v);
             }
         }
         catch (Exception ex)
@@ -212,7 +176,7 @@ public class editing extends AppCompatActivity {
             Toast.makeText(editing.this,"Что-то пошло не так  с заполнением полей и изменением", Toast.LENGTH_LONG).show();
         }
     }
-
+//обновление данных
     private void  putUpdate ( DataModal dataModal, View v)
     {
         try {
@@ -230,7 +194,6 @@ public class editing extends AppCompatActivity {
                     Toast.makeText(editing.this, "Что-то пошло не так с изменением", Toast.LENGTH_LONG).show();
                 }
             });
-
         }
         catch (Exception ex) {
             Toast.makeText(editing.this, "Что-то пошло не так с изменением", Toast.LENGTH_LONG).show();
@@ -278,7 +241,6 @@ public class editing extends AppCompatActivity {
                 public void onResponse(Call<DataModal> call, Response<DataModal> response) {
                     Toast.makeText(editing.this, "Успешное удаление", Toast.LENGTH_LONG).show();
                 }
-
                 @Override
                 public void onFailure(Call<DataModal> call, Throwable t) {
                     Toast.makeText(editing.this, "Что-то пошло не так с удалением", Toast.LENGTH_LONG).show();
@@ -291,6 +253,4 @@ public class editing extends AppCompatActivity {
             Toast.makeText(editing.this, "Что-то пошло не так с удалением", Toast.LENGTH_LONG).show();
         }
     }
-
-
 }

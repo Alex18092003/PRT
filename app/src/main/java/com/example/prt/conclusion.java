@@ -68,30 +68,35 @@ public class conclusion extends AppCompatActivity {
         new GetTeacher().execute();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.N) //сортировка
     public void SortNameSurname(List<DataModal> list){
-        lvProduct.setAdapter(null);
-        switch(spinner.getSelectedItemPosition()){
-            case 0:
-                new GetTeacher().execute();
-                break;
-            case 1:
-                Collections.sort(list, Comparator.comparing(DataModal::getName));
-                break;
-            case 2:
-                Collections.sort(list, Comparator.comparing(DataModal::getSurname));
-                break;
-            default:
-                break;
+        try {
+            lvProduct.setAdapter(null);
+            switch (spinner.getSelectedItemPosition()) {
+                case 0:
+                    new GetTeacher().execute();
+                    break;
+                case 1:
+                    Collections.sort(list, Comparator.comparing(DataModal::getName));
+                    break;
+                case 2:
+                    Collections.sort(list, Comparator.comparing(DataModal::getSurname));
+                    break;
+                default:
+                    break;
+            }
+            pAdapter = new AdapterMask(conclusion.this, list);
+            lvProduct.setAdapter(pAdapter);
+            pAdapter.notifyDataSetInvalidated();
         }
-        pAdapter = new AdapterMask(conclusion.this,list);
-        lvProduct.setAdapter(pAdapter);
-        pAdapter.notifyDataSetInvalidated();
+        catch (Exception ex) {
+
+            Toast.makeText(conclusion.this, "Что-то пошло не так с сортировкой", Toast.LENGTH_LONG).show();
+        }
     }
 
     // вывод данных
     private class GetTeacher extends AsyncTask<Void, Void, String> {
-
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -131,7 +136,7 @@ public class conclusion extends AppCompatActivity {
                 }
             } catch (Exception ex) {
 
-                Toast.makeText(conclusion.this, "Что-то пошло не так", Toast.LENGTH_LONG).show();
+                Toast.makeText(conclusion.this, "Что-то пошло не так с выводом данных", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -144,7 +149,7 @@ public class conclusion extends AppCompatActivity {
         }
         catch (Exception ex)
         {
-            Toast.makeText(conclusion.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+            Toast.makeText(conclusion.this,"Что-то пошло не так с переходом", Toast.LENGTH_LONG).show();
         }
     }
 }

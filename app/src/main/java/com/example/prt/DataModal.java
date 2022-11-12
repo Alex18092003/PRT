@@ -21,7 +21,6 @@ public class DataModal implements Parcelable {
         this.Images = Images;
     }
 
-
     protected DataModal(Parcel in)
     {
         Kod_teacher = in.readInt();
@@ -31,23 +30,6 @@ public class DataModal implements Parcelable {
         Subject = in.readString();
         Images = in.readString();
     }
-    public static final Creator<DataModal> CREATOR = new Creator<DataModal>() {
-        @Override
-        public DataModal createFromParcel(Parcel in) {
-            return new DataModal(in);
-        }
-
-        @Override
-        public DataModal[] newArray(int size) {
-            return new DataModal[size];
-        }
-    };
-
-
-
-
-
-
 
     public Integer getKod_teacher() {
         return Kod_teacher;
@@ -102,4 +84,15 @@ public class DataModal implements Parcelable {
         parcel.writeString(Subject);
         parcel.writeString(Images);
     }
+    public static final Creator<DataModal> CREATOR = new Creator<DataModal>() {
+        @Override
+        public DataModal createFromParcel(Parcel in) {
+            return new DataModal(in);
+        }
+
+        @Override
+        public DataModal[] newArray(int size) {
+            return new DataModal[size];
+        }
+    };
 }
