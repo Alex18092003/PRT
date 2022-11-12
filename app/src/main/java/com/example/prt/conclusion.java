@@ -30,7 +30,7 @@ import java.util.List;
 
 public class conclusion extends AppCompatActivity {
 
-    private Spinner spinner;
+    private Spinner spinner, spinner2;
     private AdapterMask pAdapter;
     ListView lvProduct;
     private List<DataModal> listProduct = new ArrayList<>();
@@ -51,7 +51,17 @@ public class conclusion extends AppCompatActivity {
         list.add("Сортировка по именам");
         list.add("Сортировка по фамилии");
 
+        List<String> list2 = new ArrayList<String>();
+        list2.add("Без поиска");
+        list2.add("Имя");
+        list2.add("Фамилия");
+
         spinner = findViewById(R.id.Spinner);
+        spinner2 = findViewById(R.id.Spinner2);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list2);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);

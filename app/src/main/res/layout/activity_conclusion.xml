@@ -10,17 +10,24 @@
         android:id="@+id/Spiner"
         android:layout_width="match_parent"
         android:layout_height="40dp">
-
-
         <Spinner
             android:id="@+id/Spinner"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             ></Spinner>
+
+        <Spinner
+            android:id="@+id/Spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="282dp"
+            android:layout_toEndOf="@+id/Spinner"
+            app:layout_constraintEnd_toEndOf="@+id/Spinner"
+            app:layout_constraintTop_toTopOf="parent"></Spinner>
     </RelativeLayout>
 
     <ListView
